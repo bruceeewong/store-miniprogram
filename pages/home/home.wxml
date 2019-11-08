@@ -1,0 +1,23 @@
+<!-- pages/home/home.wxml -->
+<view class="page">
+  <swiper class="banner" indicator-dots="true" autoplay="true">
+    <swiper-item wx:for="{{banners}}" wx:key="{{item.keyword}}" class="banner__item">
+      <image class="banner__image" src="{{item.images.url}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+  <view class="main">
+    <view class="theme">
+      <view class="theme__title">精选主题</view>
+      <view class="theme-imgs">
+        <image
+          wx:for="{{themes}}" 
+          wx:key="{{item.id}}"
+          class="theme-imgs__item" 
+          src="{{item.topic_img.url}}" 
+          mode="aspectFill" 
+        />
+      </view>
+    </view>
+    <view class="product"></view>
+  </view>
+</view>
