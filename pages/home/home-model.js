@@ -5,19 +5,25 @@ class Home extends Base {
     super();
   }
 
-  getBannerData(id = 0) {
+  getBanner(id = 0) {
     return this.request({
       url: `/banner/${id}`,
     });
   }
 
-  getThemeData(ids = '') {
+  getThemes(ids = '') {
     return this.request({
       url: `/theme`,
       method: 'GET',
       data: {
         ids,
       },
+    });
+  }
+
+  getRecentProducts() {
+    return this.request({
+      url: `/product/recent`,
     });
   }
 }

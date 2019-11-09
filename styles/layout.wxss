@@ -1,0 +1,4 @@
+.page {
+  position: relative;
+  font-family: 'Microsoft Yahei';
+}

@@ -1,5 +1,6 @@
 import Config from './config.js';
 import Print from './print.js';
+import Validate from './validate.js';
 
 class Base {
   constructor() {
@@ -24,6 +25,7 @@ class Base {
         },
         success(res) {
           if (res.statusCode >= 400) {
+            // 因为HTTP响应为4xx的不会走fail，这里统一处理
             Print.showToast('请求不合法');
             console.error(`请求不合法, 错误信息: ${JSON.stringify(res.data)}`);
           }
@@ -35,6 +37,24 @@ class Base {
         },
       });
     });
+  }
+
+  /**
+   * 获取小程序wxml的dataset中的参数
+   * @param {Object} event
+   * @param {String} key
+   */
+  getDataSet(event, key) {
+    console.log(`key: ${key} `, `event: `, event);
+    if ('currentTarget' in event) {
+      const result = event.currentTarget.dataset[key];
+      console.log(`result: ${result}, type: ${typeof result}`);
+      if (!Validate.isUndefined(result)) {
+        return result;
+      }
+    }
+    console.log(`key: ${key} not found in dataset`);
+    return '';
   }
 }
 

@@ -1,0 +1,6 @@
+.color-primary {
+  color: #ab956d;
+}
+.bg-color-primary {
+  color: #ab956d;
+}

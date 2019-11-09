@@ -1,23 +1,38 @@
-<!-- pages/home/home.wxml -->
+<import src="../../templates/product/product-tpl.wxml"></import>
+
 <view class="page">
   <swiper class="banner" indicator-dots="true" autoplay="true">
-    <swiper-item wx:for="{{banners}}" wx:key="{{item.keyword}}" class="banner__item">
+    <swiper-item
+      wx:for="{{banners}}"
+      wx:key="{{item.key_word}}"
+      class="banner__item"
+      data-id="{{item.key_word}}"
+      bindtap="hTapProduct"
+    >
       <image class="banner__image" src="{{item.images.url}}" mode="aspectFill" />
     </swiper-item>
   </swiper>
   <view class="main">
     <view class="theme">
-      <view class="theme__title">精选主题</view>
+      <view class="theme__title color-primary">精选主题</view>
+      <!-- 精选主题是品字布局, 只显示3张图 -->
       <view class="theme-imgs">
-        <image
-          wx:for="{{themes}}" 
-          wx:key="{{item.id}}"
-          class="theme-imgs__item" 
-          src="{{item.topic_img.url}}" 
-          mode="aspectFill" 
-        />
+        <block wx:for="{{themes}}" wx:key="{{item.id}}">
+          <image
+            wx:if="{{index < 3}}"
+            class="theme-imgs__item"
+            src="{{item.topic_img.url}}"
+            mode="aspectFill"
+            data-id="{{item.id}}"
+            data-name="{{item.name}}"
+            bindtap="hTapTheme"
+          />
+        </block>
       </view>
     </view>
-    <view class="product"></view>
+    <view class="product">
+      <view class="product__title color-primary">最近新品</view>
+      <template is="products" data="{{products:products}}"></template>
+    </view>
   </view>
 </view>

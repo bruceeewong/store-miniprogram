@@ -1,3 +1,5 @@
-.page {
-  position: relative;
-}
+@import './styles/layout.wxss';
+@import './styles/typo.wxss';
+@import './styles/color.wxss';
+
+@import './templates/base.wxss';
