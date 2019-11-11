@@ -23,7 +23,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
 	"appid": "wxaa617536743e1ce1",
-	"projectname": "imooc",
+	"projectname": "store-miniprogram",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -39,13 +39,36 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"gamePlugin": {
 			"current": -1,
 			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "pages/theme/theme",
+					"pathName": "pages/theme/theme",
+					"query": "id=1&name=专题栏位1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/product/product",
+					"pathName": "pages/product/product",
+					"query": "id=11",
+					"scene": null
+				}
+			]
 		}
 	}
 }

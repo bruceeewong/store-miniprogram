@@ -1,1 +1,14 @@
 /* pages/theme/theme.wxss */
+@import '../../templates/product/product-tpl.wxss';
+
+.header {
+  height: 400rpx;
+}
+.head-img {
+  width: 100%;
+  height: 100%;
+}
+.main {
+  box-sizing: border-box;
+  width: 100%;
+}

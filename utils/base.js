@@ -56,6 +56,18 @@ class Base {
     console.log(`key: ${key} not found in dataset`);
     return '';
   }
+
+  setBarTitle(name) {
+    let nameToSet = '';
+    if (Validate.isString(name) && name !== '') {
+      nameToSet = name;
+    } else {
+      nameToSet = '导航栏';
+    }
+    wx.setNavigationBarTitle({
+      title: nameToSet,
+    });
+  }
 }
 
 export default Base;

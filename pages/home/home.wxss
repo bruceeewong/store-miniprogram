@@ -1,4 +1,6 @@
 /* pages/home/home.wxss */
+@import '../../templates/product/product-tpl.wxss';
+
 .banner {
   height: 400rpx;
 }
