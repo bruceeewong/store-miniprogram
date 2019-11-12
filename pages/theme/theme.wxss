@@ -1,5 +1,5 @@
 /* pages/theme/theme.wxss */
-@import '../../templates/product/product-tpl.wxss';
+@import '../../templates/products/products-tpl.wxss';
 
 .header {
   height: 400rpx;

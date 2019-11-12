@@ -1,4 +1,4 @@
-<import src="../../templates/product/product-tpl.wxml"></import>
+<import src="../../templates/products/products-tpl.wxml"></import>
 
 <view class="page">
   <swiper class="banner" indicator-dots="true" autoplay="true">

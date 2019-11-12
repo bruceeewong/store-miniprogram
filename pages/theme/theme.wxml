@@ -1,5 +1,5 @@
 <!--pages/theme/theme.wxml-->
-<import src="../../templates/product/product-tpl.wxml"></import>
+<import src="../../templates/products/products-tpl.wxml"></import>
 
 <view class="page">
   <view class="header">

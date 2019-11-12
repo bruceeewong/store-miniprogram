@@ -1,2 +1,17 @@
 <!--pages/category/category.wxml-->
-<text>pages/category/category.wxml</text>
+<import src="../../templates/categories/categories-tpl" />
+<view class="page">
+  <view class="categories">
+    <view
+      wx:for="{{categories}}"
+      wx:key="{{item.id}}"
+      class="category-item ellipsis {{index === activeCategoryIndex ? 'category-item--selected' : ''}}"
+      data-id="{{item.id}}"
+      data-index="{{index}}"
+      bindtap="hTapCategory"
+    >{{item.name}}</view>
+  </view>
+  <view class="detail">
+    <template is="categories" data="{{category:templateData}}"></template>
+  </view>
+</view>

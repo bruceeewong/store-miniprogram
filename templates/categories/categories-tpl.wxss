@@ -1,0 +1,50 @@
+.container {
+  padding: 40rpx;
+}
+.head-img__wrap {
+  height: 200rpx;
+}
+.head-img {
+  width: 100%;
+  height: 100%;
+}
+.title {
+  padding: 20rpx;
+  color: #ab956d;
+  text-align: center;
+}
+.title::before,
+.title::after {
+  content: '';
+  position: relative;
+  display: inline-block;
+  width: 60rpx;
+  height: 2rpx;
+  background-color: #ab956d;
+}
+.title::before {
+  left: -10rpx;
+  top: -8rpx;
+}
+.title::after {
+  right: -10rpx;
+  top: -8rpx;
+}
+.products {
+  display: flex;
+  flex-flow: row wrap;
+}
+.product-item {
+  box-sizing: border-box;
+  width: 170rpx;
+  text-align: center;
+}
+.product-item__img {
+  width: 150rpx;
+  height: 150rpx;
+}
+.product-item__name {
+  width: 90%;
+  font-size: 0.7em;
+  line-clamp: 2;
+}

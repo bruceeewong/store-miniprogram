@@ -1,1 +1,29 @@
 /* pages/category/category.wxss */
+@import '../../templates/categories/categories-tpl.wxss';
+
+.categories {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 2rpx solid #ddd;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 150rpx;
+}
+.category-item {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20rpx 10rpx;
+  text-align: center;
+  font-size: 0.8em;
+}
+.category-item--selected {
+  color: #ab956d;
+  background-color: #eee;
+}
+.detail {
+  width: 600rpx;
+  min-height: 100vh;
+  margin-left: 150rpx;
+}

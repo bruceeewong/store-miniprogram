@@ -62,10 +62,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/product/product",
-					"pathName": "pages/product/product",
-					"query": "id=11",
+					"id": 1,
+					"name": "pages/category/category",
+					"pathName": "pages/category/category",
+					"query": "",
 					"scene": null
 				}
 			]
