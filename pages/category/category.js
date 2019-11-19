@@ -2,6 +2,7 @@
 import Category from './category-model.js';
 import Print from '../../utils/print.js';
 import Validate from '../../utils/validate.js';
+
 const category = new Category();
 
 Page({
@@ -110,5 +111,15 @@ Page({
       .catch(err => {
         Print.showToast('获取分类下商品失败');
       });
+  },
+  hTapProduct(event) {
+    const id = category.getDataSet(event, 'id');
+    if ((Validate.isString(id) && id !== '') || (Validate.isNumber(id) && id >= 0)) {
+      wx.navigateTo({
+        url: `../product/product?id=${id}`,
+      });
+    } else {
+      throw new Error('缺少product id参数');
+    }
   },
 });

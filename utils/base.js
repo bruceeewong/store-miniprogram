@@ -45,15 +45,12 @@ class Base {
    * @param {String} key
    */
   getDataSet(event, key) {
-    console.log(`key: ${key} `, `event: `, event);
     if ('currentTarget' in event) {
       const result = event.currentTarget.dataset[key];
-      console.log(`result: ${result}, type: ${typeof result}`);
       if (!Validate.isUndefined(result)) {
         return result;
       }
     }
-    console.log(`key: ${key} not found in dataset`);
     return '';
   }
 
@@ -67,6 +64,17 @@ class Base {
     wx.setNavigationBarTitle({
       title: nameToSet,
     });
+  }
+
+  toPage(url) {
+    const id = theme.getDataSet(event, 'id');
+    if ((Validate.isString(id) && id !== '') || (Validate.isNumber(id) && id >= 0)) {
+      wx.navigateTo({
+        url: `../product/product?id=${id}`,
+      });
+    } else {
+      throw new Error('缺少product id参数');
+    }
   }
 }
 

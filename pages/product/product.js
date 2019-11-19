@@ -30,7 +30,6 @@ Page({
    */
   onLoad: function(options) {
     const { id = '' } = options;
-    console.log(id);
     this.setData({
       id,
     });
@@ -42,8 +41,6 @@ Page({
     product
       .getProduct(this.data.id)
       .then(res => {
-        console.log(res);
-
         this.setData({
           name: res.name,
           mainImg: res.main_img_url,
