@@ -1,12 +1,17 @@
 <!--pages/product/product.wxml-->
 <view class="page">
   <view class="header">
+    <!-- 购物车icon -->
     <view class="cart-img__wrap">
-      <image class="cart-img" src="{{cartIcon}}" mode="aspectFill" />
+      <image class="cart-img" src="{{cart.icon}}" mode="aspectFill" />
+      <view wx:if="{{cart.totalCounts > 0}}" class="cart-img__num">{{cart.totalCounts}}</view>
     </view>
+    <!-- /购物车icon -->
+
     <view class="product-img__wrap">
-      <image class="product-img" src="{{mainImg}}" mode="aspectFit" />
+      <image class="product-img" src="{{product.main_img_url}}" mode="aspectFit" />
     </view>
+
     <view class="product-buy">
       <picker class="picker" mode="selector" range="{{counts}}" bindchange="hPickerChange">
         <view class="picker__wrap">
@@ -16,18 +21,18 @@
         </view>
       </picker>
       <view class="divider"></view>
-      <view class="addto-cart">
+      <view class="addto-cart" bindtap="hTapAddToCart">
         <text>加入购物车</text>
         <image class="addto-cart-img" src="{{addToCartIcon}}" mode="aspectFit" />
       </view>
     </view>
     <view class="product-info">
       <text class="product-status">
-        <block wx:if="{{stock>0}}">库存量：{{stock}}</block>
+        <block wx:if="{{product.stock>0}}">库存量：{{product.stock}}</block>
         <block wx:else>售罄</block>
       </text>
-      <text class="product-name">{{name}}</text>
-      <text class="product-price">￥{{price}}</text>
+      <text class="product-name">{{product.name}}</text>
+      <text class="product-price">￥{{product.price}}</text>
     </view>
   </view>
   <view class="main">
@@ -44,14 +49,14 @@
       <view class="product-imgs" hidden="{{tabActive !== 0}}">
         <image
           class="product-imgs__item"
-          wx:for="{{detailImgs}}"
+          wx:for="{{product.imgs}}"
           wx:key="{{index}}"
           src="{{item.img_url.url}}"
           mode="aspectFill"
         />
       </view>
       <view class="product-params" hidden="{{tabActive !== 1}}">
-        <view class="product-params__item" wx:for="{{properties}}" wx:key="{{item.name}}">
+        <view class="product-params__item" wx:for="{{product.properties}}" wx:key="{{item.name}}">
           <text class="item-name ellipsis">{{item.name}}</text>
           <text class="item-detail ellipsis">{{item.detail}}</text>
         </view>

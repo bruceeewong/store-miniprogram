@@ -1,6 +1,6 @@
-import { Base } from '../../utils/base';
+import Base from '../../utils/base';
 
-class Cart extends Base {
+export default class Cart extends Base {
   constructor() {
     super();
 
@@ -16,7 +16,7 @@ class Cart extends Base {
    */
   addToCart(item, counts) {
     const cartData = this.getCartDataFromStorage();
-    const info = this._findItem(item.id, cartData);
+    const info = this.findItem(item.id, cartData);
 
     // 不存在即为新商品
     if (info.index === -1) {
@@ -25,6 +25,7 @@ class Cart extends Base {
 
       cartData.push(item);
     } else {
+      console.log(info);
       cartData[info.index].counts += counts;
     }
 
@@ -49,18 +50,22 @@ class Cart extends Base {
    * @param {array} arr
    * @returns {object}
    */
-  _findItem(id, arr) {
-    let result = {
-      index: -1,
+  findItem(id, arr) {
+    const index = arr.findIndex(item => item.id === id);
+    const result = {
+      index,
     };
-
-    const target = arr.find(item => item.id === id);
-    if (target) {
-      result = {
-        index: target.id,
-        data: target,
-      };
-    }
     return result;
+  }
+
+  /**
+   * 获取购物车内所有商品总数量
+   * @returns {number} counts
+   */
+  getCartTotalCounts() {
+    const dataList = this.getCartDataFromStorage();
+    let counts = 0;
+    dataList.forEach(item => (counts += item.counts));
+    return counts;
   }
 }

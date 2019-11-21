@@ -67,6 +67,13 @@
 					"pathName": "pages/category/category",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/product/product",
+					"pathName": "pages/product/product",
+					"query": "id=1",
+					"scene": null
 				}
 			]
 		}
