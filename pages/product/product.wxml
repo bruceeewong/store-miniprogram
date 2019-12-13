@@ -6,13 +6,16 @@
       <image class="cart-img" src="{{cart.icon}}" mode="aspectFill" />
       <view wx:if="{{cart.totalCounts > 0}}" class="cart-img__num">{{cart.totalCounts}}</view>
     </view>
-    <!-- /购物车icon -->
+    <!-- 购物车icon -->
 
+    <!-- 商品头图 -->
     <view class="product-img__wrap">
       <image class="product-img" src="{{product.main_img_url}}" mode="aspectFit" />
     </view>
+    <!-- 商品头图 -->
 
     <view class="product-buy">
+      <!-- 数量选择器 -->
       <picker class="picker" mode="selector" range="{{counts}}" bindchange="hPickerChange">
         <view class="picker__wrap">
           <text class="counts-tips">数量</text>
@@ -20,12 +23,19 @@
           <image class="counts-icon" src="{{countIcon}}" mode="aspectFit" />
         </view>
       </picker>
+      <!-- 数量选择器 -->
+
       <view class="divider"></view>
+
+      <!-- 加入购物车按钮 -->
       <view class="addto-cart" bindtap="hTapAddToCart">
         <text>加入购物车</text>
         <image class="addto-cart-img" src="{{addToCartIcon}}" mode="aspectFit" />
       </view>
+      <!-- 加入购物车按钮 -->
     </view>
+
+    <!-- 商品简介 -->
     <view class="product-info">
       <text class="product-status">
         <block wx:if="{{product.stock>0}}">库存量：{{product.stock}}</block>
@@ -34,8 +44,12 @@
       <text class="product-name">{{product.name}}</text>
       <text class="product-price">￥{{product.price}}</text>
     </view>
+    <!-- 商品简介 -->
   </view>
+
+  <!-- 产品详情 -->
   <view class="main">
+    <!-- Tab -->
     <view class="tabs">
       <view
         wx:for="{{tabs}}"
@@ -45,6 +59,9 @@
         data-index="{{index}}"
       >{{item}}</view>
     </view>
+    <!-- Tab -->
+
+    <!-- Tab详情 -->
     <view class="product-detail">
       <view class="product-imgs" hidden="{{tabActive !== 0}}">
         <image
@@ -63,5 +80,7 @@
       </view>
       <view class="product-sale" hidden="{{tabActive !== 2}}">{{saleText}}</view>
     </view>
+    <!-- Tab详情 -->
   </view>
+  <!-- 产品详情 -->
 </view>

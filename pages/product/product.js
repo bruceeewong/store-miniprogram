@@ -66,15 +66,23 @@ Page({
       });
   },
 
-  // 获取所选数量
+  //
+  /**
+   * 获取picker控件的购买数量值
+   * @param {*} event
+   */
   hPickerChange(event) {
     const index = event.detail.value;
-    const item = this.data.counts[index];
+    const value = this.data.counts[index];
     this.setData({
-      countSelected: item,
+      countSelected: value,
     });
   },
 
+  /**
+   * 点击商品信息Tab的响应函数
+   * @param {object} event
+   */
   hTapTab(event) {
     const index = product.getDataSet(event, 'index');
     this.setData({
@@ -83,7 +91,8 @@ Page({
   },
 
   /**
-   * 点击产品的添加到购物车
+   * 点击产品的添加到购物车的响应函数
+   * @param {object} event
    */
   hTapAddToCart(event) {
     const { id, name, main_img_url, price } = this.data.product;

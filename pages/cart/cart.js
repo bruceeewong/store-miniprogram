@@ -22,10 +22,10 @@ Page({
    */
   onShow() {
     const cartData = cart.getCartDataFromStorage();
-    console.log(cartData);
+    console.log('cartData', cartData);
 
     const selectedCounts = cart.getCartTotalCounts(true);
-    console.log(selectedCounts);
+    console.log('selectedCounts', selectedCounts);
 
     this.setData({
       cartData,
@@ -52,6 +52,6 @@ Page({
     });
 
     amount = parseFloat(amount.toFixed(2));
-    console.log(amount);
+    console.log('amount', amount);
   },
 });

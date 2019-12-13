@@ -12,7 +12,7 @@ export default class Cart extends Base {
    * 如果之前没有这样的商品，则直接添加一条新的记录，数量为counts
    * 如果有，则只将相应数量 + counts
    * @param {object} item
-   * @param {int} counts
+   * @param {number}
    */
   addToCart(item, counts) {
     const cartData = this.getCartDataFromStorage();
@@ -25,7 +25,6 @@ export default class Cart extends Base {
 
       cartData.push(item);
     } else {
-      console.log(info);
       cartData[info.index].counts += counts;
     }
 
@@ -62,7 +61,7 @@ export default class Cart extends Base {
    * 获取购物车内所有商品总数量
    * flag为true, 考虑商品的选择状态
    * @param {boolean} flag
-   * @returns {number} counts
+   * @returns {number}
    */
   getCartTotalCounts(flag = false) {
     let dataList = this.getCartDataFromStorage();
