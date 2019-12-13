@@ -22,25 +22,26 @@ Page({
    */
   onShow() {
     const cartData = cart.getCartDataFromStorage();
-    console.log('cartData', cartData);
-
-    const selectedCounts = cart.getCartTotalCounts(true);
-    console.log('selectedCounts', selectedCounts);
+    const cartInfo = this.calcTotalAmountAndCounts(cartData);
 
     this.setData({
       cartData,
-      selectedCounts,
+      selectedCounts: cartInfo.selectedCounts,
+      selectedTypeCounts: cartInfo.selectedTypeCounts,
     });
 
     this.calcTotalAmountAndCounts(cartData);
   },
 
+  /**
+   * 计算购物车内商品的总价格、总数量、总类型数
+   * @param {array} data
+   * @returns {object}
+   */
   calcTotalAmountAndCounts(data) {
-    const len = data.length;
     let amount = 0;
     let selectedCounts = 0;
     let selectedTypeCounts = 0;
-    let multiple = 100;
 
     // 计算总价格
     data.forEach(item => {
@@ -51,7 +52,13 @@ Page({
       }
     });
 
-    amount = parseFloat(amount.toFixed(2));
-    console.log('amount', amount);
+    amount = Number(parseFloat(amount.toFixed(2)));
+
+    const result = {
+      selectedCounts,
+      selectedTypeCounts,
+      amount,
+    };
+    return result;
   },
 });
