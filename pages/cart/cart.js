@@ -1,66 +1,57 @@
 // pages/cart/cart.js
-Page({
+import Cart from './cart-model.js';
 
+const cart = new Cart();
+
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-
+    cartData: [],
+    selectedCounts: 0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
+  onLoad(options) {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow() {
+    const cartData = cart.getCartDataFromStorage();
+    console.log(cartData);
 
+    const selectedCounts = cart.getCartTotalCounts(true);
+    console.log(selectedCounts);
+
+    this.setData({
+      cartData,
+      selectedCounts,
+    });
+
+    this.calcTotalAmountAndCounts(cartData);
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+  calcTotalAmountAndCounts(data) {
+    const len = data.length;
+    let amount = 0;
+    let selectedCounts = 0;
+    let selectedTypeCounts = 0;
+    let multiple = 100;
 
+    // 计算总价格
+    data.forEach(item => {
+      if (item.selectStatus) {
+        amount += item.price * item.counts;
+        selectedCounts += item.counts;
+        selectedTypeCounts += 1;
+      }
+    });
+
+    amount = parseFloat(amount.toFixed(2));
+    console.log(amount);
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
-})
+});

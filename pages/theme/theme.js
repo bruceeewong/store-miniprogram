@@ -21,7 +21,6 @@ Page({
    */
   onLoad: function(options) {
     const { id, name } = options;
-    console.log(id, name);
     this.setData({
       id,
       name,
@@ -38,7 +37,6 @@ Page({
     theme
       .getProducts(this.data.id)
       .then(res => {
-        console.log(res);
         this.setData({
           products: res.products,
           headImg: res.head_img.url,

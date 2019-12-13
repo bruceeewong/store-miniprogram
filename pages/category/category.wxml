@@ -1,7 +1,9 @@
 <!--pages/category/category.wxml-->
 <import src="../../templates/categories/categories-tpl" />
+
 <view class="page">
   <view class="categories">
+    <!-- 侧边栏 -->
     <view
       wx:for="{{categories}}"
       wx:key="{{item.id}}"
@@ -10,8 +12,12 @@
       data-index="{{index}}"
       bindtap="hTapCategory"
     >{{item.name}}</view>
+    <!-- 侧边栏 -->
   </view>
+
   <view class="detail">
+    <!-- 右侧详情 -->
     <template is="categories" data="{{category:templateData}}"></template>
+    <!-- 右侧详情 -->
   </view>
 </view>

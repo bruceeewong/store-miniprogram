@@ -60,11 +60,16 @@ export default class Cart extends Base {
 
   /**
    * 获取购物车内所有商品总数量
+   * flag为true, 考虑商品的选择状态
+   * @param {boolean} flag
    * @returns {number} counts
    */
-  getCartTotalCounts() {
-    const dataList = this.getCartDataFromStorage();
+  getCartTotalCounts(flag = false) {
+    let dataList = this.getCartDataFromStorage();
     let counts = 0;
+    if (flag) {
+      dataList = dataList.filter(item => item.selectStatus === true);
+    }
     dataList.forEach(item => (counts += item.counts));
     return counts;
   }
