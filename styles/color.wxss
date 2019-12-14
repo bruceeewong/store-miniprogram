@@ -4,3 +4,6 @@
 .bg-color-primary {
   color: #ab956d;
 }
+.border-color {
+  color: #ddd;
+}

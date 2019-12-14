@@ -35,6 +35,9 @@
   flex-flow: row wrap;
 }
 .product-item {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   box-sizing: border-box;
   width: 170rpx;
   text-align: center;
@@ -45,6 +48,6 @@
 }
 .product-item__name {
   width: 90%;
-  font-size: 0.7em;
+  font-size: 18rpx;
   line-clamp: 2;
 }

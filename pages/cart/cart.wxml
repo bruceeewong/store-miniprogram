@@ -1,6 +1,54 @@
 <!--pages/cart/cart.wxml-->
 <view class="container">
-  <block wx:if="{{cartData.length > 0}}"></block>
+  <block wx:if="{{cartData.length > 0}}">
+    <view class="main">
+      <view
+        wx:for="{{cartData}}"
+        class="cart-item"
+      >
+        <view class="cart-item__checkbox">
+          <image wx:if="{{item.selectStatus}}" src="../../images/icon/circle@selected.png"></image>
+          <image wx:else src="../../images/icon/circle@noselected.png"></image>
+        </view>
+
+        <view class="cart-item__img">
+          <image src="{{item.main_img_url}}"></image>
+        </view>
+
+        <view class="cart-item__info">
+          <view class="info-header">
+            <text class="info-header__title">{{item.name}}</text>
+            <text class="info-header__price">￥{{item.price}}</text>
+          </view>
+          
+          <view class="info-footer">
+            <view class="info-footer__control">
+              <view class="control__btn control__btn--minus">-</view>
+              <view class="control__amount">{{item.counts}}</view>
+              <view class="control__btn control__btn--plus">+</view>
+            </view>
+
+            <view class="control__btn control__btn--delete">x</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="footer">
+      <view class="footer-all-select">
+        <image 
+          class="footer-all-select__img" 
+          src="../../images/icon/circle@noselected.png"
+        >
+        <text class="footer-all-select__text">全选</text>
+        <text class="footer-all-select__counts">({{selectedCounts}})</text>
+        </image>
+      </view>
+      <view class="footer-submit">
+
+      </view>
+    </view>
+  </block>
   <block wx:else>
     <view class="no-data">您还没有添加任何商品</view>
   </block>

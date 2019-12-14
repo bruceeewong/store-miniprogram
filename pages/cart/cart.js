@@ -10,6 +10,7 @@ Page({
   data: {
     cartData: [],
     selectedCounts: 0,
+    selectedTypeCounts: 0,
   },
 
   /**
