@@ -5,6 +5,10 @@ class Home extends Base {
     super();
   }
 
+  /**
+   * 获取Banner栏的信息
+   * @param {number} id
+   */
   getBanner(id = 0) {
     return this.request({
       url: `/banner/${id}`,

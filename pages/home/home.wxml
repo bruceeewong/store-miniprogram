@@ -1,6 +1,7 @@
 <import src="../../templates/products/products-tpl.wxml"></import>
 
 <view class="page">
+  <!-- Banner -->
   <swiper class="banner" indicator-dots="true" autoplay="true">
     <swiper-item
       wx:for="{{banners}}"
@@ -12,12 +13,16 @@
       <image class="banner__image" src="{{item.images.url}}" mode="aspectFill" />
     </swiper-item>
   </swiper>
+  <!-- Banner -->
+
+  <!-- Main -->
   <view class="main">
+    <!-- 精选主题 -->
     <view class="theme">
       <view class="theme__title color-primary">精选主题</view>
-      <!-- 精选主题是品字布局, 只显示3张图 -->
       <view class="theme-imgs">
         <block wx:for="{{themes}}" wx:key="{{item.id}}">
+          <!-- 精选主题是品字布局, 只显示3张图 -->
           <image
             wx:if="{{index < 3}}"
             class="theme-imgs__item"
@@ -30,9 +35,14 @@
         </block>
       </view>
     </view>
+    <!-- 精选主题 -->
+
+    <!-- 最近新品 -->
     <view class="product">
       <view class="product__title color-primary">最近新品</view>
       <template is="products" data="{{products:products}}"></template>
     </view>
+    <!-- 最近新品 -->
   </view>
+  <!-- Main -->
 </view>

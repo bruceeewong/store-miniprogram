@@ -15,19 +15,20 @@ Page({
   /**
    * 生命周期函数
    */
-  onLoad: function(options) {
+  onLoad() {
     this.getBanner();
     this.getThemes();
     this.getRecentProducts();
   },
 
   /**
-   * 请求函数
+   * 获取Banner
    */
   getBanner() {
     home
       .getBanner(1)
       .then(res => {
+        console.log(res);
         this.setData({
           banners: res.items,
         });
@@ -37,6 +38,9 @@ Page({
       });
   },
 
+  /**
+   * 获取精选主题
+   */
   getThemes() {
     home
       .getThemes('1,2,3')
@@ -50,6 +54,9 @@ Page({
       });
   },
 
+  /**
+   * 获取最近新品
+   */
   getRecentProducts() {
     home
       .getRecentProducts()

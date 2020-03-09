@@ -4,7 +4,7 @@ import Validate from './validate.js';
 
 class Base {
   constructor() {
-    this.baseUrl = Config.baseUrl;
+    this.baseUrl = Config.BASE_URL;
   }
 
   /**
@@ -21,19 +21,17 @@ class Base {
         method,
         header: {
           'content-type': 'application/json',
-          token: wx.getStorageSync('token'),
+          token: wx.getStorageSync('token'), // 令牌
         },
         success(res) {
           if (res.statusCode >= 400) {
             // 因为HTTP响应为4xx的不会走fail，这里统一处理
-            Print.showToast('请求不合法');
-            console.error(`请求不合法, 错误信息: ${JSON.stringify(res.data)}`);
+            reject(res.data);
           }
           resolve(res.data);
         },
         fail(err) {
           reject(err);
-          console.error('请求错误:', err);
         },
       });
     });

@@ -1,2 +1,2 @@
 export default class Config {}
-Config.baseUrl = 'https://bruski.wang/zerg/public/index.php/api/v1';
+Config.BASE_URL = 'https://bruski.wang/zerg/public/index.php/api/v1';
