@@ -11,6 +11,7 @@ Page({
     cartData: [],
     selectedCounts: 0,
     selectedTypeCounts: 0,
+    amount: 0,
   },
 
   /**
@@ -29,9 +30,8 @@ Page({
       cartData,
       selectedCounts: cartInfo.selectedCounts,
       selectedTypeCounts: cartInfo.selectedTypeCounts,
+      amount: cartInfo.amount,
     });
-
-    this.calcTotalAmountAndCounts(cartData);
   },
 
   /**

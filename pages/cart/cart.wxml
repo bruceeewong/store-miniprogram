@@ -38,14 +38,19 @@
       <view class="footer-all-select">
         <image 
           class="footer-all-select__img" 
-          src="../../images/icon/circle@noselected.png"
-        >
+          src="../../images/icon/all@selected.png"
+        />
         <text class="footer-all-select__text">全选</text>
         <text class="footer-all-select__counts">({{selectedCounts}})</text>
-        </image>
       </view>
-      <view class="footer-submit">
 
+      <view class="footer-submit">
+        <text class="footer-submit__text">下单</text>
+        <text class="footer-submit__price">￥{{amount}}</text>
+        <image 
+          class="footer-submit__next" 
+          src="../../images/icon/arrow.png"
+        />
       </view>
     </view>
   </block>
