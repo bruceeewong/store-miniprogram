@@ -12,6 +12,7 @@ Page({
     selectedCounts: 0,
     selectedTypeCounts: 0,
     amount: 0,
+    isAllSelect: false, // 全选状态
   },
 
   /**
@@ -24,24 +25,20 @@ Page({
    */
   onShow() {
     const cartData = cart.getCartDataFromStorage();
-    const cartInfo = this.calcTotalAmountAndCounts(cartData);
-
-    this.setData({
-      cartData,
-      selectedCounts: cartInfo.selectedCounts,
-      selectedTypeCounts: cartInfo.selectedTypeCounts,
-      amount: cartInfo.amount,
-    });
+    this.setPageData(cartData);
   },
 
   /**
-   * 计算购物车内商品的总价格、总数量、总类型数
+   * 计算购物车内选中商品的总价格、总数量、总类型数
    * @param {array} data
    * @returns {object}
    */
   calcTotalAmountAndCounts(data) {
+    // 选中总价格
     let amount = 0;
+    // 选中的商品总数
     let selectedCounts = 0;
+    // 选中商品类型的数量
     let selectedTypeCounts = 0;
 
     // 计算总价格
@@ -53,13 +50,84 @@ Page({
       }
     });
 
-    amount = Number(parseFloat(amount.toFixed(2)));
+    amount = parseFloat(amount.toFixed(2)); // 解决浮点数位数问题
 
-    const result = {
+    return {
       selectedCounts,
       selectedTypeCounts,
       amount,
     };
-    return result;
+  },
+
+  /**
+   * 购物车中的选中的状态控制
+   */
+  hToggleSelect(event) {
+    const id = cart.getDataSet(event, 'id');
+    const status = cart.getDataSet(event, 'status');
+
+    const cartData = [...this.data.cartData];
+    const item = this.findItemByID(id, cartData);
+    if (!item) {
+      throw new Error('找不到id对应的商品对象');
+    }
+    item.selectStatus = !status; // 切换点击项的选中状态
+
+    this.setPageData(cartData); // 更新页面数据
+  },
+
+  hToggleSelectAll() {
+    const toggleStatus = !this.data.isAllSelect;
+    const cartData = [...this.data.cartData];
+    cartData.forEach(item => {
+      item.selectStatus = toggleStatus;
+    });
+    this.setPageData(cartData); // 更新页面数据
+  },
+
+  /**
+   * 根据id获取data中的对象
+   * @param {*} id
+   * @param {array} data
+   * @returns {object|null}
+   */
+  findItemByID(id, data) {
+    const len = data.length;
+    for (let i = 0; i < len; i += 1) {
+      if (id === data[i].id) {
+        return data[i];
+      }
+    }
+    return null;
+  },
+
+  /**
+   * 根据购物车数据设置页面的所有绑定值
+   * @param {array} cartData
+   */
+  setPageData(cartData) {
+    const cartInfo = this.calcTotalAmountAndCounts(cartData);
+    const { selectedCounts, selectedTypeCounts, amount } = cartInfo;
+
+    this.setData({
+      selectedCounts,
+      selectedTypeCounts,
+      amount,
+      cartData,
+    });
+
+    this.setIsAllSelect(); // 根据选中的情况设置全选状态
+  },
+
+  /**
+   * 根据已选商品类型数量与总数量比较，设置全选的状态
+   */
+  setIsAllSelect() {
+    const currentStatus = this.data.selectedTypeCounts === this.data.cartData.length;
+    if (currentStatus !== this.data.isAllSelect) {
+      this.setData({
+        isAllSelect: currentStatus,
+      });
+    }
   },
 });

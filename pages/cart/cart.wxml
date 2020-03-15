@@ -2,25 +2,37 @@
 <view class="container">
   <block wx:if="{{cartData.length > 0}}">
     <view class="main">
-      <view
-        wx:for="{{cartData}}"
-        class="cart-item"
-      >
-        <view class="cart-item__checkbox">
-          <image wx:if="{{item.selectStatus}}" src="../../images/icon/circle@selected.png"></image>
-          <image wx:else src="../../images/icon/circle@noselected.png"></image>
+      <!-- 购物车的商品 -->
+      <view wx:for="{{cartData}}" class="cart-item">
+        <!-- 选择按钮 -->
+        <view
+          data-id="{{item.id}}"
+          data-status="{{item.selectStatus}}"
+          class="cart-item__checkbox"
+          bind:tap="hToggleSelect"
+        >
+          <!-- 选中状态 -->
+          <image wx:if="{{item.selectStatus}}" src="../../images/icon/circle@selected.png" />
+          <!-- 未选中状态 -->
+          <image wx:else src="../../images/icon/circle@noselected.png" />
         </view>
+        <!-- 选择按钮 -->
 
+        <!-- 商品缩略图 -->
         <view class="cart-item__img">
-          <image src="{{item.main_img_url}}"></image>
+          <image src="{{item.main_img_url}}" mode="aspectFill" />
         </view>
+        <!-- 商品缩略图 -->
 
+        <!-- 商品信息-->
         <view class="cart-item__info">
           <view class="info-header">
             <text class="info-header__title">{{item.name}}</text>
-            <text class="info-header__price">￥{{item.price}}</text>
+            <text class="info-header__price color-danger">￥{{item.price}}</text>
           </view>
-          
+          <!-- 商品信息-->
+
+          <!-- 操作栏 -->
           <view class="info-footer">
             <view class="info-footer__control">
               <view class="control__btn control__btn--minus">-</view>
@@ -30,31 +42,38 @@
 
             <view class="control__btn control__btn--delete">x</view>
           </view>
+          <!-- 操作栏 -->
         </view>
       </view>
+      <!-- 购物车的商品 -->
     </view>
 
+    <!-- 购物车汇总数据 -->
     <view class="footer">
-      <view class="footer-all-select">
-        <image 
-          class="footer-all-select__img" 
+      <!-- 全选 -->
+      <view class="footer-all-select" bindtap="hToggleSelectAll">
+        <image
+          wx:if="{{isAllSelect}}"
+          class="footer-all-select__img"
           src="../../images/icon/all@selected.png"
         />
+        <image wx:else class="footer-all-select__img" src="../../images/icon/all.png" />
         <text class="footer-all-select__text">全选</text>
         <text class="footer-all-select__counts">({{selectedCounts}})</text>
       </view>
+      <!-- 全选 -->
 
+      <!-- 提交订单 -->
       <view class="footer-submit">
         <text class="footer-submit__text">下单</text>
         <text class="footer-submit__price">￥{{amount}}</text>
-        <image 
-          class="footer-submit__next" 
-          src="../../images/icon/arrow.png"
-        />
+        <image class="footer-submit__next" src="../../images/icon/arrow.png" />
       </view>
+      <!-- 提交订单 -->
     </view>
+    <!-- 购物车汇总数据 -->
   </block>
   <block wx:else>
-    <view class="no-data">您还没有添加任何商品</view>
+    <view class="no-data">您还没有添加任何商品，快去挑选吧！</view>
   </block>
 </view>

@@ -1,6 +1,9 @@
 .color-primary {
   color: #ab956d;
 }
+.color-danger {
+  color: #e93f3c;
+}
 .bg-color-primary {
   color: #ab956d;
 }

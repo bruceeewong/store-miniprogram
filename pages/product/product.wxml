@@ -39,7 +39,7 @@
     <view class="product-info">
       <text class="product-status">
         <block wx:if="{{product.stock>0}}">库存量：{{product.stock}}</block>
-        <block wx:else>售罄</block>
+        <block wx:else>暂时缺货</block>
       </text>
       <text class="product-name">{{product.name}}</text>
       <text class="product-price">￥{{product.price}}</text>

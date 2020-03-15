@@ -25,7 +25,7 @@ Page({
     },
     cart: {
       icon: '../../images/icon/cart@top.png',
-      totalCounts: 0,
+      totalCounts: 0, // 显示当前购物车中的所有商品数量
     },
     addToCartIcon: '../../images/icon/cart.png',
     countIcon: '../../images/icon/arrow@down.png',
@@ -91,7 +91,7 @@ Page({
   },
 
   /**
-   * 点击产品的添加到购物车的响应函数
+   * 点击产品的添加到购物车
    * @param {object} event
    */
   hTapAddToCart(event) {

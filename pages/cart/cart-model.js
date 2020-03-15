@@ -16,7 +16,7 @@ export default class Cart extends Base {
    */
   addToCart(item, counts) {
     const cartData = this.getCartDataFromStorage();
-    const info = this.findItem(item.id, cartData);
+    const info = this.findItem(item.id, cartData); // 根据 item.id 去找缓存中的数据
 
     // 不存在即为新商品
     if (info.index === -1) {
@@ -28,6 +28,7 @@ export default class Cart extends Base {
       cartData[info.index].counts += counts;
     }
 
+    // 更新storage
     wx.setStorageSync(this.storageKey, cartData);
   }
 
@@ -47,7 +48,7 @@ export default class Cart extends Base {
    * 判断当前id项是否在arr中, 返回一个对象
    * @param {string} id
    * @param {array} arr
-   * @returns {object}
+   * @returns {{index:number}}
    */
   findItem(id, arr) {
     const index = arr.findIndex(item => item.id === id);
@@ -59,13 +60,13 @@ export default class Cart extends Base {
 
   /**
    * 获取购物车内所有商品总数量
-   * flag为true, 考虑商品的选择状态
+   * flag为true, 只筛选被选中商品的数量
    * @param {boolean} flag
    * @returns {number}
    */
   getCartTotalCounts(flag = false) {
-    let dataList = this.getCartDataFromStorage();
     let counts = 0;
+    let dataList = this.getCartDataFromStorage();
     if (flag) {
       dataList = dataList.filter(item => item.selectStatus === true);
     }

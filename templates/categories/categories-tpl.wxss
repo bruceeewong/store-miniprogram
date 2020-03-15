@@ -48,6 +48,6 @@
 }
 .product-item__name {
   width: 90%;
-  font-size: 18rpx;
+  font-size: 24rpx;
   line-clamp: 2;
 }
