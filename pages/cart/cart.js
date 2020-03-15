@@ -66,11 +66,13 @@ Page({
     const id = cart.getDataSet(event, 'id');
     const status = cart.getDataSet(event, 'status');
 
-    const cartData = [...this.data.cartData];
-    const item = this.findItemByID(id, cartData);
-    if (!item) {
+    const index = this.getProductIndexByID(id);
+    if (index === '-1') {
       throw new Error('找不到id对应的商品对象');
     }
+    const cartData = [...this.data.cartData];
+    const item = cartData[index];
+
     item.selectStatus = !status; // 切换点击项的选中状态
 
     this.setPageData(cartData); // 更新页面数据
@@ -91,14 +93,16 @@ Page({
    * @param {array} data
    * @returns {object|null}
    */
-  findItemByID(id, data) {
+  getProductIndexByID(id) {
+    const data = this.data.cartData;
     const len = data.length;
+
     for (let i = 0; i < len; i += 1) {
       if (id === data[i].id) {
-        return data[i];
+        return i;
       }
     }
-    return null;
+    return -1;
   },
 
   /**

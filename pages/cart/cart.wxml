@@ -3,7 +3,7 @@
   <block wx:if="{{cartData.length > 0}}">
     <view class="main">
       <!-- 购物车的商品 -->
-      <view wx:for="{{cartData}}" class="cart-item">
+      <view wx:for="{{cartData}}" wx:key="{{item.id}}" class="cart-item">
         <!-- 选择按钮 -->
         <view
           data-id="{{item.id}}"
