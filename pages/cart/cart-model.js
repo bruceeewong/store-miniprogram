@@ -44,6 +44,10 @@ export default class Cart extends Base {
     return result;
   }
 
+  setCartDataToStorage(data) {
+    wx.setStorageSync(this.storageKey, data);
+  }
+
   /**
    * 判断当前id项是否在arr中, 返回一个对象
    * @param {string} id

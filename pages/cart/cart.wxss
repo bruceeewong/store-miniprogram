@@ -66,8 +66,12 @@
   height: 60rpx;
   line-height: 60rpx;
   font-size: 28rpx;
+  font-weight: bold;
   text-align: center;
   background-color: #f5f6f5;
+}
+.cart-item__info .control__btn--disabled {
+  color: #ddd;
 }
 .info-footer .control__amount {
   font-weight: bold;

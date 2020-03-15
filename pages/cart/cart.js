@@ -1,5 +1,6 @@
 // pages/cart/cart.js
 import Cart from './cart-model.js';
+import Print from '../../utils/print.js';
 
 const cart = new Cart();
 
@@ -26,6 +27,38 @@ Page({
   onShow() {
     const cartData = cart.getCartDataFromStorage();
     this.setPageData(cartData);
+  },
+
+  /**
+   * 生命周期函数--离开页面时
+   */
+  onHide() {
+    cart.setCartDataToStorage(this.data.cartData); // 更新购物车数据缓存
+  },
+
+  /**
+   * 购物车中的选中的状态控制
+   */
+  hToggleSelect(event) {
+    const id = cart.getDataSet(event, 'id');
+    const status = cart.getDataSet(event, 'status');
+
+    const index = this.getProductIndexByID(id);
+    const cartData = [...this.data.cartData];
+    const item = cartData[index];
+
+    item.selectStatus = !status; // 切换点击项的选中状态
+
+    this.setPageData(cartData); // 更新页面数据
+  },
+
+  hToggleSelectAll() {
+    const toggleStatus = !this.data.isAllSelect;
+    const cartData = [...this.data.cartData];
+    cartData.forEach(item => {
+      item.selectStatus = toggleStatus;
+    });
+    this.setPageData(cartData); // 更新页面数据
   },
 
   /**
@@ -60,38 +93,11 @@ Page({
   },
 
   /**
-   * 购物车中的选中的状态控制
-   */
-  hToggleSelect(event) {
-    const id = cart.getDataSet(event, 'id');
-    const status = cart.getDataSet(event, 'status');
-
-    const index = this.getProductIndexByID(id);
-    if (index === '-1') {
-      throw new Error('找不到id对应的商品对象');
-    }
-    const cartData = [...this.data.cartData];
-    const item = cartData[index];
-
-    item.selectStatus = !status; // 切换点击项的选中状态
-
-    this.setPageData(cartData); // 更新页面数据
-  },
-
-  hToggleSelectAll() {
-    const toggleStatus = !this.data.isAllSelect;
-    const cartData = [...this.data.cartData];
-    cartData.forEach(item => {
-      item.selectStatus = toggleStatus;
-    });
-    this.setPageData(cartData); // 更新页面数据
-  },
-
-  /**
-   * 根据id获取data中的对象
+   * 根据id获取对应商品在cartData中的下标
    * @param {*} id
    * @param {array} data
-   * @returns {object|null}
+   * @returns {number}
+   * @throws
    */
   getProductIndexByID(id) {
     const data = this.data.cartData;
@@ -102,7 +108,8 @@ Page({
         return i;
       }
     }
-    return -1;
+    // 找不到就抛出错误
+    throw new Error('找不到id对应的商品对象');
   },
 
   /**
@@ -119,7 +126,6 @@ Page({
       amount,
       cartData,
     });
-
     this.setIsAllSelect(); // 根据选中的情况设置全选状态
   },
 
@@ -133,5 +139,69 @@ Page({
         isAllSelect: currentStatus,
       });
     }
+  },
+
+  hAddCounts(event) {
+    const id = cart.getDataSet(event, 'id');
+    this.updateCounts(id, 1);
+  },
+
+  hReduceCounts(event) {
+    const id = cart.getDataSet(event, 'id');
+    this.updateCounts(id, -1);
+  },
+
+  hRemoveItem(event) {
+    const id = cart.getDataSet(event, 'id');
+    this.removeItems(id);
+  },
+
+  /**
+   * 更新选中商品数量
+   */
+  updateCounts(id, offset) {
+    try {
+      const index = this.getProductIndexByID(id);
+      const cartData = [...this.data.cartData];
+      const item = cartData[index];
+
+      const currentCounts = item.counts;
+      if (currentCounts + parseInt(offset) < 1) {
+        Print.showToast('商品数量至少为1');
+        return; // 终止更新操作
+      }
+
+      item.counts += parseInt(offset);
+      this.setPageData(cartData); // 更新页面
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  /**
+   *
+   * @param {number|array} ids
+   */
+  removeItems(ids) {
+    if (typeof ids !== 'number' && !Array.isArray(ids)) {
+      throw new Error('参数ids应为数字或数组类型');
+    }
+
+    const cartData = [...this.data.cartData];
+    let index = -1;
+    if (typeof ids === 'number') {
+      index = this.getProductIndexByID(ids);
+      cartData.splice(index, 1);
+    }
+
+    if (Array.isArray(ids)) {
+      ids.forEach(id => {
+        index = this.getProductIndexByID(ids);
+        cartData.splice(index, 1);
+      });
+    }
+
+    this.setPageData(cartData);
+    return;
   },
 });

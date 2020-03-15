@@ -2,7 +2,7 @@
 <view class="page">
   <view class="header">
     <!-- 购物车icon -->
-    <view class="cart-img__wrap">
+    <view class="cart-img__wrap" bindtap="hTapToCart">
       <image class="cart-img" src="{{cart.icon}}" mode="aspectFill" />
       <view wx:if="{{cart.totalCounts > 0}}" class="cart-img__num">{{cart.totalCounts}}</view>
     </view>

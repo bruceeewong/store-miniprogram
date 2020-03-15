@@ -51,21 +51,6 @@ Page({
     this.getProduct();
   },
 
-  getProduct() {
-    product
-      .getProduct(this.data.product.id)
-      .then(res => {
-        this.setData({
-          product: res,
-          counts: Util.range(1, res.stock),
-        });
-      })
-      .catch(err => {
-        Print.showToast('获取产品信息失败');
-        console.error(err);
-      });
-  },
-
   //
   /**
    * 获取picker控件的购买数量值
@@ -103,5 +88,29 @@ Page({
     this.setData({
       'cart.totalCounts': cart.getCartTotalCounts(),
     });
+  },
+
+  /**
+   * 跳转购物车页面
+   */
+  hTapToCart() {
+    wx.switchTab({
+      url: '/pages/cart/cart',
+    });
+  },
+
+  getProduct() {
+    product
+      .getProduct(this.data.product.id)
+      .then(res => {
+        this.setData({
+          product: res,
+          counts: Util.range(1, res.stock),
+        });
+      })
+      .catch(err => {
+        Print.showToast('获取产品信息失败');
+        console.error(err);
+      });
   },
 });

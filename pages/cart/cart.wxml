@@ -35,12 +35,24 @@
           <!-- 操作栏 -->
           <view class="info-footer">
             <view class="info-footer__control">
-              <view class="control__btn control__btn--minus">-</view>
+              <view
+                data-id="{{item.id}}"
+                class="control__btn control__btn--minus {{item.counts === 1 ? 'control__btn--disabled' : ''}}"
+                bindtap="hReduceCounts"
+              >-</view>
               <view class="control__amount">{{item.counts}}</view>
-              <view class="control__btn control__btn--plus">+</view>
+              <view
+                data-id="{{item.id}}"
+                class="control__btn control__btn--plus"
+                bindtap="hAddCounts"
+              >+</view>
             </view>
 
-            <view class="control__btn control__btn--delete">x</view>
+            <view
+              data-id="{{item.id}}"
+              class="control__btn control__btn--delete"
+              bindtap="hRemoveItem"
+            >x</view>
           </view>
           <!-- 操作栏 -->
         </view>
