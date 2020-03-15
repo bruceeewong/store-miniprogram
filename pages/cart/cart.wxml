@@ -28,7 +28,7 @@
         <view class="cart-item__info">
           <view class="info-header">
             <text class="info-header__title">{{item.name}}</text>
-            <text class="info-header__price color-danger">￥{{item.price}}</text>
+            <text class="info-header__price color-primary">￥{{item.price}}</text>
           </view>
           <!-- 商品信息-->
 
@@ -76,7 +76,7 @@
       <!-- 全选 -->
 
       <!-- 提交订单 -->
-      <view class="footer-submit">
+      <view class="footer-submit" bindtap="hSubmitOrder">
         <text class="footer-submit__text">下单</text>
         <text class="footer-submit__price">￥{{amount}}</text>
         <image class="footer-submit__next" src="../../images/icon/arrow.png" />

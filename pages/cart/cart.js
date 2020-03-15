@@ -1,6 +1,7 @@
 // pages/cart/cart.js
 import Cart from './cart-model.js';
 import Print from '../../utils/print.js';
+import SearchParam from '../../utils/search-param.js';
 
 const cart = new Cart();
 
@@ -10,9 +11,9 @@ Page({
    */
   data: {
     cartData: [],
-    selectedCounts: 0,
-    selectedTypeCounts: 0,
-    amount: 0,
+    selectedCounts: 0, // 选中商品总数
+    selectedTypeCounts: 0, // 选中商品种类数
+    amount: 0, // 总金额
     isAllSelect: false, // 全选状态
   },
 
@@ -59,6 +60,34 @@ Page({
       item.selectStatus = toggleStatus;
     });
     this.setPageData(cartData); // 更新页面数据
+  },
+
+  hAddCounts(event) {
+    const id = cart.getDataSet(event, 'id');
+    this.updateCounts(id, 1);
+  },
+
+  hReduceCounts(event) {
+    const id = cart.getDataSet(event, 'id');
+    this.updateCounts(id, -1);
+  },
+
+  hRemoveItem(event) {
+    const id = cart.getDataSet(event, 'id');
+    this.removeItems(id);
+  },
+
+  /**
+   * 跳转订单页
+   */
+  hSubmitOrder() {
+    const params = new SearchParam();
+    params.append('amount', this.data.amount);
+    params.append('from', 'cart');
+
+    wx.navigateTo({
+      url: '/pages/order/order?' + params.toString(),
+    });
   },
 
   /**
@@ -139,21 +168,6 @@ Page({
         isAllSelect: currentStatus,
       });
     }
-  },
-
-  hAddCounts(event) {
-    const id = cart.getDataSet(event, 'id');
-    this.updateCounts(id, 1);
-  },
-
-  hReduceCounts(event) {
-    const id = cart.getDataSet(event, 'id');
-    this.updateCounts(id, -1);
-  },
-
-  hRemoveItem(event) {
-    const id = cart.getDataSet(event, 'id');
-    this.removeItems(id);
   },
 
   /**

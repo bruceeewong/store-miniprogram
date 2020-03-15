@@ -1,0 +1,19 @@
+<!--pages/order/order.wxml-->
+<view class="container">
+  <view class="main">
+    <!-- 订单的商品 -->
+    <view wx:for="{{products}}" wx:key="{{item.id}}" class="product">
+      <!-- 商品缩略图 -->
+      <image class="product__image" src="{{item.main_img_url}}" mode="aspectFill" />
+      <!-- 商品缩略图 -->
+      <!-- 商品信息-->
+      <text class="product__title ellipsis">{{item.name}}</text>
+      <view class="product-info">
+        <text class="product-info__price ellipsis">￥{{item.price}}</text>
+        <text class="product-info__count ellipsis color-secondary">共{{item.counts}}件</text>
+      </view>
+      <!-- 商品信息-->
+    </view>
+    <!-- 订单的商品 -->
+  </view>
+</view>

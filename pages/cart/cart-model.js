@@ -34,12 +34,16 @@ export default class Cart extends Base {
 
   /**
    * 从storage中获取购物车数据
+   * 根据标志位为判断是拿全部还是只是选中的商品数据
    * @returns {array}
    */
-  getCartDataFromStorage() {
+  getCartDataFromStorage(isJustSelect = false) {
     let result = wx.getStorageSync(this.storageKey);
     if (!result) {
-      result = [];
+      return [];
+    }
+    if (isJustSelect) {
+      return result.filter(item => item.selectStatus === true);
     }
     return result;
   }

@@ -31,5 +31,6 @@
 .products-item__price {
   display: block;
   width: 100%;
-  font-size: 22rpx;
+  font-size: 26rpx;
+  line-height: 1.5;
 }

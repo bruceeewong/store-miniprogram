@@ -10,3 +10,6 @@
 .border-color {
   color: #ddd;
 }
+.color-secondary {
+  color: #aaa;
+}

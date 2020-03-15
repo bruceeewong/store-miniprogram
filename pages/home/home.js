@@ -28,7 +28,6 @@ Page({
     home
       .getBanner(1)
       .then(res => {
-        console.log(res);
         this.setData({
           banners: res.items,
         });

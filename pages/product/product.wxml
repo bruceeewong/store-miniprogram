@@ -37,7 +37,7 @@
 
     <!-- 商品简介 -->
     <view class="product-info">
-      <text class="product-status">
+      <text class="product-status color-secondary">
         <block wx:if="{{product.stock>0}}">库存量：{{product.stock}}</block>
         <block wx:else>暂时缺货</block>
       </text>

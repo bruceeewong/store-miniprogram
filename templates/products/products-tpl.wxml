@@ -6,7 +6,7 @@
           <image class="products-item__img" src="{{item.main_img_url}}" />
           <view class="products-item-bottom">
             <text class="products-item__name ellipsis">{{item.name}}</text>
-            <text class="products-item__price ellipsis">{{item.price}}</text>
+            <text class="products-item__price color-primary ellipsis">￥{{item.price}}</text>
           </view>
         </view>
       </view>

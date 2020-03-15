@@ -79,6 +79,14 @@
 					"id": -1,
 					"name": "pages/cart/cart",
 					"pathName": "pages/cart/cart",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/order/order",
+					"pathName": "pages/order/order",
+					"query": "amount=0.09&from=cart",
 					"scene": null
 				}
 			]
