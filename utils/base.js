@@ -1,6 +1,6 @@
 import Config from './config.js';
-import Print from './print.js';
 import Validate from './validate.js';
+import TokenModel from './token';
 
 class Base {
   constructor() {
@@ -10,8 +10,10 @@ class Base {
   /**
    * 微信请求封装，携带token
    * @param {Object} params
+   * @param {boolean} noRefetch // 指示是否执行重试机制，默认执行
    */
-  request(params) {
+  request(params, noRefetch = false) {
+    const that = this;
     const { url = '', data = null, method = 'GET' } = params;
 
     return new Promise((resolve, reject) => {
@@ -24,17 +26,47 @@ class Base {
           token: wx.getStorageSync('token'), // 令牌
         },
         success(res) {
-          if (res.statusCode >= 400) {
+          const { statusCode, data } = res;
+          if (statusCode >= 400) {
             // 因为HTTP响应为4xx的不会走fail，这里统一处理
-            reject(res.data);
+
+            if (statusCode === 401) {
+              // 如果是令牌失效导致的错误，触发重试机制
+              // 重新获取令牌并再次重新发送相同请求
+              if (!noRefetch) {
+                // 这里默认是会重试
+                // 而重试的结果必须在这里处理，否则外界调用者捕获不到成功与错误的回调
+                that
+                  ._refetch(params)
+                  .then(res => resolve(res))
+                  .catch(e => reject(e));
+                return; // 重试就不急着触发报错
+              }
+            }
+            // 其他错误直接报错
+            reject(new Error(data.msg));
           }
-          resolve(res.data);
+          // 成功回调
+          resolve(data);
         },
         fail(err) {
           reject(err);
         },
       });
     });
+  }
+
+  /**
+   * 当请求时发现令牌失效，自动执行重新获取令牌并再次请求数据的操作
+   * @param {*} params
+   */
+  _refetch(params) {
+    const tokenModel = new TokenModel();
+    const promise = tokenModel.getTokenFromServer().then(() => {
+      // 这里防止无限重试，加上标志位，noRefetch为true意味着这次请求失败后就不再重试
+      return this.request(params, true); // 返回promise链
+    });
+    return promise; // 返回promise链
   }
 
   /**

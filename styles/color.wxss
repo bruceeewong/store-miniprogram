@@ -7,6 +7,9 @@
 .bg-color-primary {
   color: #ab956d;
 }
+.bg-color-base {
+  background-color: #ddd;
+}
 .border-color {
   color: #ddd;
 }

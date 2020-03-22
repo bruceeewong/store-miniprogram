@@ -1,7 +1,10 @@
 // pages/order/order.js
 import CartModel from '../cart/cart-model';
+import AddressModel from '../../utils/address';
+import Print from '../../utils/print';
 
 const cartModel = new CartModel();
+const addressModel = new AddressModel();
 
 Page({
   /**
@@ -11,6 +14,7 @@ Page({
     amount: 0,
     products: [],
     orderStatus: 0,
+    addressInfo: '',
   },
 
   /**
@@ -27,38 +31,27 @@ Page({
     });
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {},
+  hEditAddress() {
+    // 调用微信小程序获取收货地址API
+    AddressModel.chooseAddress().then(res => {
+      const fullAddress = addressModel.concatAddress(res);
+      const addressInfo = {
+        name: res.userName,
+        mobile: res.telNumber,
+        fullAddress,
+      };
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {},
+      addressModel.submitAddress(res).catch(e => {
+        Print.showToast('地址信息更新失败');
+      });
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {},
+      this._bindAddresInfo(addressInfo);
+    });
+  },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {},
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {},
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {},
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {},
+  _bindAddresInfo(addressInfo) {
+    this.setData({
+      addressInfo,
+    });
+  },
 });

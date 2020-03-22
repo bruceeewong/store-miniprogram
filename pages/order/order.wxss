@@ -1,9 +1,19 @@
+page {
+  background-color: #eee;
+}
+.address {
+  text-align: center;
+  padding: 30rpx;
+  background-color: #ffffff;
+  border-bottom: 2rpx solid #ddd;
+}
 .product {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   height: 240rpx;
   padding: 32rpx;
+  background-color: #ffffff;
   border-bottom: 2rpx solid #ddd;
 }
 .product__image {

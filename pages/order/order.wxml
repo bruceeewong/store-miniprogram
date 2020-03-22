@@ -1,6 +1,12 @@
 <!--pages/order/order.wxml-->
-<view class="container">
-  <view class="main">
+<view class="page">
+  <view class="address" bindtap="hEditAddress">
+    <block wx:if="{{address}}"></block>
+    <block wx:else>
+      <text>+ 添加地址</text>
+    </block>
+  </view>
+  <view class="product-list">
     <!-- 订单的商品 -->
     <view wx:for="{{products}}" wx:key="{{item.id}}" class="product">
       <!-- 商品缩略图 -->
