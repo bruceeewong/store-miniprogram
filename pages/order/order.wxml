@@ -1,7 +1,20 @@
 <!--pages/order/order.wxml-->
 <view class="page">
   <view class="address" bindtap="hEditAddress">
-    <block wx:if="{{address}}"></block>
+    <block wx:if="{{addressInfo}}">
+      <view class="address__wrapper">
+        <view class="address-user">
+          <image src="../../images/icon/user.png" />
+          <text class="ellipsis">{{addressInfo.name}}</text>
+        </view>
+        <view class="address-mobile">
+          <image src="../../images/icon/mobile.png" />
+          <text class="ellipsis">{{addressInfo.mobile}}</text>
+        </view>
+      </view>
+      <text class="address__address ellipsis color-secondary">{{addressInfo.fullAddress}}</text>
+      <image class="address-arrow" src="../../images/icon/arrow@right.png" />
+    </block>
     <block wx:else>
       <text>+ 添加地址</text>
     </block>

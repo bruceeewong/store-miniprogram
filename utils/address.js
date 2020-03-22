@@ -44,6 +44,13 @@ export default class AddressModel extends Base {
     });
   }
 
+  getAddress() {
+    return this.request({
+      url: '/address',
+      method: 'get',
+    });
+  }
+
   /**
    * 判断省份是否是直辖市
    * @param {*} name

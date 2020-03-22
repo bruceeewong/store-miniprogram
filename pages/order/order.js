@@ -29,6 +29,16 @@ Page({
       amount,
       orderStatus: 0,
     });
+
+    addressModel.getAddress().then(res => {
+      const fullAddress = addressModel.concatAddress(res);
+      const addressInfo = {
+        name: res.name,
+        mobile: res.mobile,
+        fullAddress,
+      };
+      this._bindAddresInfo(addressInfo);
+    });
   },
 
   hEditAddress() {
