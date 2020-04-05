@@ -46,17 +46,21 @@ Page({
 
   hEditAddress() {
     // 调用微信小程序获取收货地址API
-    AddressModel.chooseAddress().then(data => {
-      addressModel.submitAddress(data).catch(e => {
-        Print.showToast('地址信息更新失败');
+    AddressModel.chooseAddress()
+      .then(data => {
+        addressModel.submitAddress(data).catch(e => {
+          Print.showToast('地址信息更新失败');
+        });
+        const addressInfo = {
+          name: data.userName,
+          mobile: data.telNumber,
+          fullAddress: addressModel.concatAddress(data),
+        };
+        this._bindAddressInfo(addressInfo);
+      })
+      .catch(e => {
+        console.log('用户拒绝授权地址信息');
       });
-      const addressInfo = {
-        name: data.userName,
-        mobile: data.telNumber,
-        fullAddress: addressModel.concatAddress(data),
-      };
-      this._bindAddressInfo(addressInfo);
-    });
   },
 
   hPay() {

@@ -56,7 +56,6 @@ export default class Order extends Base {
             paySign: data.paySign,
             success: result => {
               // 成功拉起微信支付
-              console.log(result);
               resolve(2);
             },
             fail: e => {

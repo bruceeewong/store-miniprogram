@@ -1,3 +1,5 @@
+import SearchParam from '../../utils/search-param';
+
 // pages/pay-result/pay-result.js
 Page({
   /**
@@ -29,9 +31,12 @@ Page({
         delta: 1,
       });
     } else {
-      // TODO
+      const searchParam = new SearchParam();
+      searchParam.append('id', this.data.id);
+      searchParam.append('from', 'my');
+
       wx.navigateTo({
-        url: '/',
+        url: `../order/order?${searchParam.toString()}`,
       });
     }
   },
