@@ -8,7 +8,7 @@
   </view>
   <view class="address">
     <block wx:if="{{addressInfo}}">
-      <view class="title">
+      <view class="title" bindtap="hEditAddress">
         地址管理
         <image
           class="address-arrow {{ basicInfo ? 'hide' : '' }}"

@@ -44,6 +44,33 @@ Page({
     this._initFromOrder(this.data.id);
   },
 
+  hEditAddress() {
+    // 调用微信小程序获取收货地址API
+    AddressModel.chooseAddress().then(data => {
+      addressModel.submitAddress(data).catch(e => {
+        Print.showToast('地址信息更新失败');
+      });
+      const addressInfo = {
+        name: data.userName,
+        mobile: data.telNumber,
+        fullAddress: addressModel.concatAddress(data),
+      };
+      this._bindAddressInfo(addressInfo);
+    });
+  },
+
+  hPay() {
+    if (!this.data.addressInfo) {
+      Print.showTips('下单提示', '请先填写您的收货地址');
+    }
+
+    if (this.data.orderStatus === 0) {
+      this._firstTimePay();
+      return;
+    }
+    this._oneMoreTryPay();
+  },
+
   _initFromCart(amount) {
     const products = cartModel.getCartDataFromStorage(true);
 
@@ -54,7 +81,7 @@ Page({
     });
 
     addressModel.getAddress().then(data => {
-      this._bindAddresInfo(data);
+      this._bindAddressInfo(data);
     });
   },
 
@@ -74,38 +101,11 @@ Page({
       });
 
       data['snap_address'].fullAddress = addressModel.concatAddress(data['snap_address']);
-      this._bindAddresInfo(data['snap_address']);
+      this._bindAddressInfo(data['snap_address']);
     });
   },
 
-  hEditAddress() {
-    // 调用微信小程序获取收货地址API
-    AddressModel.chooseAddress().then(data => {
-      addressModel.submitAddress(data).catch(e => {
-        Print.showToast('地址信息更新失败');
-      });
-      const addressInfo = {
-        name: data.userName,
-        mobile: data.telNumber,
-        fullAddress: addressModel.concatAddress(data),
-      };
-      this._bindAddresInfo(addressInfo);
-    });
-  },
-
-  hPay() {
-    if (!this.data.addressInfo) {
-      Print.showTips('下单提示', '请先填写您的收货地址');
-    }
-
-    if (this.data.orderStatus === 0) {
-      this._firstTimePay();
-      return;
-    }
-    this._oneMoreTryPay();
-  },
-
-  _bindAddresInfo(addressInfo) {
+  _bindAddressInfo(addressInfo) {
     this.setData({
       addressInfo,
     });

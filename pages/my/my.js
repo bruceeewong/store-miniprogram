@@ -80,6 +80,21 @@ Page({
       });
   },
 
+  hEditAddress() {
+    // 调用微信小程序获取收货地址API
+    AddressModel.chooseAddress().then(data => {
+      addressModel.submitAddress(data).catch(e => {
+        Print.showToast('地址信息更新失败');
+      });
+      const addressInfo = {
+        name: data.userName,
+        mobile: data.telNumber,
+        fullAddress: addressModel.concatAddress(data),
+      };
+      this._bindAddressInfo(addressInfo);
+    });
+  },
+
   toOrder(event) {
     const id = orderModel.getDataSet(event, 'id');
     const searchParam = new SearchParam();
