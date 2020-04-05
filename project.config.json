@@ -95,6 +95,13 @@
 					"pathName": "pages/pay-result/pay-result",
 					"query": "flag=false",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/my/my",
+					"pathName": "pages/my/my",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

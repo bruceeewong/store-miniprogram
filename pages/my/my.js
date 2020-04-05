@@ -1,66 +1,73 @@
 // pages/my/my.js
-Page({
+import MyModel from './my-model';
+import AddressModel from '../../utils/address';
+import OrderModel from '../order/order-model';
 
+const myModel = new MyModel();
+const addressModel = new AddressModel();
+const orderModel = new OrderModel();
+
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-
+    userInfo: null,
+    addressInfo: null,
+    orders: [],
+    pageIndex: 1,
+    isLoadAll: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad(options) {
+    this._getUserInfo();
+    this._getAddressInfo();
+    this._getOrder();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onReachBottom() {
+    this.setData({
+      pageIndex: this.data.pageIndex + 1,
+    });
+    this._getOrder();
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  _getUserInfo() {
+    myModel.getUserInfo().then(data => {
+      this.setData({
+        userInfo: data,
+      });
+    });
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  _getAddressInfo() {
+    addressModel.getAddress().then(addressInfo => {
+      this._bindAddressInfo(addressInfo);
+    });
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  _getOrder() {
+    orderModel.getOrder(this.data.pageIndex).then(res => {
+      const { data } = res;
+      if (data.length === 0) {
+        this.setData({
+          isLoadAll: true,
+        });
+        return;
+      }
+      const localOrders = [...this.data.orders];
+      this.setData({
+        orders: localOrders.concat(data),
+      });
+    });
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
+  _bindAddressInfo(addressInfo) {
+    this.setData({
+      addressInfo,
+    });
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
-})
+});

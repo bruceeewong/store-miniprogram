@@ -1,2 +1,56 @@
 <!--pages/my/my.wxml-->
-<text>pages/my/my.wxml</text>
+<view class="page">
+  <view class="header">
+    <view class="user">
+      <image class="user-avatar" src="{{userInfo.avatarUrl}}" />
+      <text class="user-name">{{userInfo.nickName}}</text>
+    </view>
+  </view>
+  <view class="address">
+    <block wx:if="{{addressInfo}}">
+      <view class="title">
+        地址管理
+        <image
+          class="address-arrow {{ basicInfo ? 'hide' : '' }}"
+          src="../../images/icon/arrow@right.png"
+        />
+      </view>
+      <view class="address-info color-secondary">{{addressInfo.name}}</view>
+      <view class="address-info color-secondary">{{addressInfo.mobile}}</view>
+      <view class="address-info color-secondary">{{addressInfo.fullAddress}}</view>
+    </block>
+    <block wx:else>+ 添加地址</block>
+  </view>
+
+  <view class="order">
+    <view class="title">我的订单</view>
+    <view class="order-list">
+      <view wx:for="{{orders}}" wx:key="{{item.id}}" class="order-item color-secondary">
+        <view class="order-item__no">订单编号: {{item.order_no}}</view>
+        <view class="order-item-main">
+          <image class="order-item-main__img" src="{{item.snap_img}}" />
+          <view class="order-item-main__info">
+            <text class="ellipsis">{{item.snap_name}}</text>
+            <text>共 {{item.total_count}} 件商品</text>
+          </view>
+          <view class="order-item-main__status">
+            <tex class="color-danger" wx:if="{{item.status === 1}}">待付款</tex>
+            <text class="color-primary" wx:if="{{item.status === 2}}">已付款</text>
+            <text class="color-primary" wx:if="{{item.status === 3}}">已发货</text>
+          </view>
+        </view>
+        <view class="order-item-footer">
+          <block wx:if="{{item.status === 1}}">
+            <text class="order-item__price color-danger">待支付: ¥{{item.total_price}}</text>
+            <view class="pay-button">付款</view>
+          </block>
+          <block wx:else>
+            <text class="order-item__price color-primary">实付: ¥{{item.total_price}}</text>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-line color-secondary">--- 我是有底线的 ---</view>
+</view>

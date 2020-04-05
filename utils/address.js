@@ -48,6 +48,9 @@ export default class AddressModel extends Base {
     return this.request({
       url: '/address',
       method: 'get',
+    }).then(data => {
+      data.fullAddress = this.concatAddress(data);
+      return data;
     });
   }
 

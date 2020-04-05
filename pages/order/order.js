@@ -35,8 +35,8 @@ Page({
       orderStatus: 0,
     });
 
-    addressModel.getAddress().then(res => {
-      this._bindAddresInfo(res);
+    addressModel.getAddress().then(data => {
+      this._bindAddresInfo(data);
     });
   },
 
@@ -58,18 +58,23 @@ Page({
         },
       });
 
+      data['snap_address'].fullAddress = addressModel.concatAddress(data['snap_address']);
       this._bindAddresInfo(data['snap_address']);
     });
   },
 
   hEditAddress() {
     // 调用微信小程序获取收货地址API
-    AddressModel.chooseAddress().then(res => {
-      addressModel.submitAddress(res).catch(e => {
+    AddressModel.chooseAddress().then(data => {
+      addressModel.submitAddress(data).catch(e => {
         Print.showToast('地址信息更新失败');
       });
-
-      this._bindAddresInfo(res);
+      const addressInfo = {
+        name: data.userName,
+        mobile: data.telNumber,
+        fullAddress: addressModel.concatAddress(data),
+      };
+      this._bindAddresInfo(addressInfo);
     });
   },
 
@@ -85,13 +90,7 @@ Page({
     this._oneMoreTryPay();
   },
 
-  _bindAddresInfo(address) {
-    const fullAddress = addressModel.concatAddress(address);
-    const addressInfo = {
-      name: address.userName || address.name,
-      mobile: address.telNumber || address.mobile,
-      fullAddress,
-    };
+  _bindAddresInfo(addressInfo) {
     this.setData({
       addressInfo,
     });

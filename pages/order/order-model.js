@@ -68,6 +68,14 @@ export default class Order extends Base {
       });
   }
 
+  getOrder(pageIndex) {
+    return this.request({
+      url: '/order/by_user?XDEBUG_SESSION_START=12663',
+      method: 'get',
+      data: { page: pageIndex },
+    });
+  }
+
   _setStorage(data) {
     wx.setStorageSync(this.storageKeyName, data);
   }
