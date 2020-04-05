@@ -19,7 +19,15 @@
       <view class="address-info color-secondary">{{addressInfo.mobile}}</view>
       <view class="address-info color-secondary">{{addressInfo.fullAddress}}</view>
     </block>
-    <block wx:else>+ 添加地址</block>
+    <block wx:else>
+      <view class="title" bindtap="hEditAddress">
+        + 添加地址
+        <image
+          class="address-arrow {{ basicInfo ? 'hide' : '' }}"
+          src="../../images/icon/arrow@right.png"
+        />
+      </view>
+    </block>
   </view>
 
   <view class="order">

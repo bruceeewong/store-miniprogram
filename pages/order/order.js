@@ -157,6 +157,7 @@ Page({
           wx.navigateTo({
             url: `../pay-result/pay-result?${search.toString()}`,
           });
+          return;
         }
 
         search.append('flag', true);

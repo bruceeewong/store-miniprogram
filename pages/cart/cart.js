@@ -81,6 +81,9 @@ Page({
    * 跳转订单页
    */
   hSubmitOrder() {
+    if (this.data.selectedCounts === 0) {
+      return;
+    }
     const params = new SearchParam();
     params.append('amount', this.data.amount);
     params.append('from', 'cart');
