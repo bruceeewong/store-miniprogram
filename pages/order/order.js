@@ -26,7 +26,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const { amount } = options;
+    const { from } = options;
+    if (from === 'cart') {
+      this._initFromCart(options.amount);
+    } else {
+      this.setData({
+        id: options.id,
+      });
+      this._initFromOrder(options.id);
+    }
+  },
+
+  /**
+   * 更新订单详情
+   */
+  onShow() {
+    this._initFromOrder(this.data.id);
+  },
+
+  _initFromCart(amount) {
     const products = cartModel.getCartDataFromStorage(true);
 
     this.setData({
@@ -40,14 +58,11 @@ Page({
     });
   },
 
-  /**
-   * 更新订单详情
-   */
-  onShow() {
-    if (!this.data.id) {
+  _initFromOrder(id) {
+    if (!id) {
       return;
     }
-    orderModel.getOrderInfoById(this.data.id).then(data => {
+    orderModel.getOrderInfoById(id).then(data => {
       this.setData({
         orderStatus: data['status'],
         products: data['snap_items'],

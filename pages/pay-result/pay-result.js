@@ -7,6 +7,7 @@ Page({
     id: '',
     from: '',
     payResult: false,
+    from: '',
   },
 
   /**
@@ -17,13 +18,21 @@ Page({
       id: options.id,
       from: options.from,
       payResult: options.flag === 'true' ? true : false,
+      from: options.from,
     });
   },
 
   hViewOrder() {
-    //返回上一级
-    wx.navigateBack({
-      delta: 1,
-    });
+    if (this.data.from === 'order') {
+      //返回上一级
+      wx.navigateBack({
+        delta: 1,
+      });
+    } else {
+      // TODO
+      wx.navigateTo({
+        url: '/',
+      });
+    }
   },
 });

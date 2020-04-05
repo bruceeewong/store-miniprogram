@@ -19,13 +19,13 @@ export default class Order extends Base {
    */
   doOrder(param) {
     return this.request({
-      url: '/order?XDEBUG_SESSION_START=10443',
+      url: '/order',
       method: 'post',
       data: {
         products: param,
       },
     }).then(data => {
-      this._setStorage(data);
+      this.setNewOrderFlagToStorage(true); // 每次成功创建都会更新新订单标识
       return data;
     });
   }
@@ -36,7 +36,7 @@ export default class Order extends Base {
    */
   pay(orderID) {
     return this.request({
-      url: '/pay/pre_order?XDEBUG_SESSION_START=10443',
+      url: '/pay/pre_order',
       method: 'post',
       data: { id: orderID },
     })
@@ -70,13 +70,17 @@ export default class Order extends Base {
 
   getOrder(pageIndex) {
     return this.request({
-      url: '/order/by_user?XDEBUG_SESSION_START=12663',
+      url: '/order/by_user',
       method: 'get',
       data: { page: pageIndex },
     });
   }
 
-  _setStorage(data) {
-    wx.setStorageSync(this.storageKeyName, data);
+  getNewOrderFlagFromStorage() {
+    return wx.getStorageSync(this.storageKeyName);
+  }
+
+  setNewOrderFlagToStorage(flag) {
+    wx.setStorageSync(this.storageKeyName, flag);
   }
 }

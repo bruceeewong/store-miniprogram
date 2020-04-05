@@ -25,7 +25,13 @@
   <view class="order">
     <view class="title">我的订单</view>
     <view class="order-list">
-      <view wx:for="{{orders}}" wx:key="{{item.id}}" class="order-item color-secondary">
+      <view
+        wx:for="{{orders}}"
+        wx:key="{{item.id}}"
+        data-id="{{item.id}}"
+        class="order-item color-secondary"
+        bindtap="toOrder"
+      >
         <view class="order-item__no">订单编号: {{item.order_no}}</view>
         <view class="order-item-main">
           <image class="order-item-main__img" src="{{item.snap_img}}" />
@@ -42,7 +48,7 @@
         <view class="order-item-footer">
           <block wx:if="{{item.status === 1}}">
             <text class="order-item__price color-danger">待支付: ¥{{item.total_price}}</text>
-            <view class="pay-button">付款</view>
+            <view class="pay-button" data-id="{{item.id}}" catchtap="hPay">付款</view>
           </block>
           <block wx:else>
             <text class="order-item__price color-primary">实付: ¥{{item.total_price}}</text>
