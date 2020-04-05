@@ -14,18 +14,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    id: '',
+    id: null,
     amount: 0,
     products: [],
     orderStatus: 0,
     addressInfo: null,
+    basicInfo: null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const { amount, from } = options;
+    const { amount } = options;
     const products = cartModel.getCartDataFromStorage(true);
 
     this.setData({
@@ -35,31 +36,40 @@ Page({
     });
 
     addressModel.getAddress().then(res => {
-      const fullAddress = addressModel.concatAddress(res);
-      const addressInfo = {
-        name: res.name,
-        mobile: res.mobile,
-        fullAddress,
-      };
-      this._bindAddresInfo(addressInfo);
+      this._bindAddresInfo(res);
+    });
+  },
+
+  /**
+   * 更新订单详情
+   */
+  onShow() {
+    if (!this.data.id) {
+      return;
+    }
+    orderModel.getOrderInfoById(this.data.id).then(data => {
+      this.setData({
+        orderStatus: data['status'],
+        products: data['snap_items'],
+        amount: data['total_price'],
+        basicInfo: {
+          orderTime: data['create_time'],
+          orderNo: data['order_no'],
+        },
+      });
+
+      this._bindAddresInfo(data['snap_address']);
     });
   },
 
   hEditAddress() {
     // 调用微信小程序获取收货地址API
     AddressModel.chooseAddress().then(res => {
-      const fullAddress = addressModel.concatAddress(res);
-      const addressInfo = {
-        name: res.userName,
-        mobile: res.telNumber,
-        fullAddress,
-      };
-
       addressModel.submitAddress(res).catch(e => {
         Print.showToast('地址信息更新失败');
       });
 
-      this._bindAddresInfo(addressInfo);
+      this._bindAddresInfo(res);
     });
   },
 
@@ -75,7 +85,13 @@ Page({
     this._oneMoreTryPay();
   },
 
-  _bindAddresInfo(addressInfo) {
+  _bindAddresInfo(address) {
+    const fullAddress = addressModel.concatAddress(address);
+    const addressInfo = {
+      name: address.userName || address.name,
+      mobile: address.telNumber || address.mobile,
+      fullAddress,
+    };
     this.setData({
       addressInfo,
     });
@@ -111,23 +127,31 @@ Page({
     orderModel
       .pay(id)
       .then(statusCode => {
-        if (statusCode === 0) {
-          Print.showToast('生成预订单失败');
-        }
         // statusCode为1或2，此时订单已经生成了
         this._deleteCartProducts();
 
         const search = new SearchParam();
         search.append('id', id);
-        search.append('flag', statusCode === 2);
         search.append('from', 'order');
 
+        if (statusCode === 1) {
+          search.append('flag', false);
+          wx.navigateTo({
+            url: `../pay-result/pay-result?${search.toString()}`,
+          });
+        }
+
+        search.append('flag', true);
         wx.navigateTo({
           url: `../pay-result/pay-result?${search.toString()}`,
         });
       })
       .catch(e => {
-        Print.showToast('');
+        if (e === 0) {
+          Print.showToast('生成预订单失败');
+          return;
+        }
+        throw e;
       });
   },
 
@@ -164,5 +188,7 @@ Page({
     return name;
   },
 
-  _oneMoreTryPay() {},
+  _oneMoreTryPay() {
+    this._execPay(this.data.id);
+  },
 });

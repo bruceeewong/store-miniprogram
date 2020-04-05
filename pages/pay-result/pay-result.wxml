@@ -1,0 +1,15 @@
+<!--pages/pay-result/pay-result.wxml-->
+<view class="page">
+  <view class="pay-result">
+    <block wx:if="{{payResult}}">
+      <image src="../../images/icon/pay@success.png" />
+      <text>支付成功</text>
+      <button type="primary" bindtap="hViewOrder">查看订单</button>
+    </block>
+    <block wx:else>
+      <image src="../../images/icon/pay@error.png" />
+      <text>支付失败</text>
+      <button type="warn" bindtap="hViewOrder">查看订单</button>
+    </block>
+  </view>
+</view>

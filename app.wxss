@@ -3,3 +3,11 @@
 @import './styles/color.wxss';
 
 @import './templates/base.wxss';
+
+.disabled {
+  pointer-events: none;
+}
+
+.hide {
+  display: none;
+}

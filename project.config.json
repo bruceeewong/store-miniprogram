@@ -88,6 +88,13 @@
 					"pathName": "pages/order/order",
 					"query": "amount=0.05&from=cart",
 					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "pages/pay-result/pay-result",
+					"pathName": "pages/pay-result/pay-result",
+					"query": "flag=false",
+					"scene": null
 				}
 			]
 		}

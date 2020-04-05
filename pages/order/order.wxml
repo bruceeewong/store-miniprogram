@@ -1,6 +1,17 @@
 <!--pages/order/order.wxml-->
 <view class="page">
-  <view class="address" bindtap="hEditAddress">
+  <view class="order" wx:if="{{basicInfo}}">
+    <view class="order__detail color-secondary">
+      <text>下单时间: {{basicInfo.orderTime}}</text>
+      <text>订单编号: {{basicInfo.orderNo}}</text>
+    </view>
+    <view class="order__status">
+      <tex class="color-danger" wx:if="{{orderStatus === 1}}">待付款</tex>
+      <text class="color-primary" wx:if="{{orderStatus === 2}}">已付款</text>
+      <text class="color-primary" wx:if="{{orderStatus === 3}}">已发货</text>
+    </view>
+  </view>
+  <view class="address {{ basicInfo ? 'disabled' : '' }}" bindtap="hEditAddress">
     <block wx:if="{{addressInfo}}">
       <view class="address__wrapper">
         <view class="address-user">
@@ -13,7 +24,10 @@
         </view>
       </view>
       <text class="address__address ellipsis color-secondary">{{addressInfo.fullAddress}}</text>
-      <image class="address-arrow" src="../../images/icon/arrow@right.png" />
+      <image
+        class="address-arrow {{ basicInfo ? 'hide' : '' }}"
+        src="../../images/icon/arrow@right.png"
+      />
     </block>
     <block wx:else>
       <text>+ 添加地址</text>
@@ -37,6 +51,6 @@
   </view>
   <view class="footer">
     <view class="pay-amonut">付款合计: ¥ {{amount}}</view>
-    <button class="pay-button" bindtap="hPay">去付款</button>
+    <button class="pay-button {{ orderStatus >= 2 ? 'hide' : '' }}" bindtap="hPay">去付款</button>
   </view>
 </view>

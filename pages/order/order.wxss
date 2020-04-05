@@ -1,6 +1,23 @@
 page {
   background-color: #eee;
 }
+.order {
+  display: flex;
+  justify-content: space-between;
+  padding: 24rpx;
+  background-color: #ffffff;
+  border-bottom: 2rpx solid #ddd;
+  font-size: 26rpx;
+}
+.order__detail text {
+  display: block;
+  margin: 16rpx 0;
+}
+.order__status {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .address {
   position: relative;
   padding: 24rpx 32rpx;
@@ -110,4 +127,7 @@ page {
   border-radius: 0;
   color: #fff;
   padding: 0 48rpx;
+}
+.pay-button--hide {
+  display: none;
 }
