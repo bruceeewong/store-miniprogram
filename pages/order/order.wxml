@@ -35,4 +35,8 @@
     </view>
     <!-- 订单的商品 -->
   </view>
+  <view class="footer">
+    <view class="pay-amonut">付款合计: ¥ {{amount}}</view>
+    <button class="pay-button" bindtap="hPay">去付款</button>
+  </view>
 </view>

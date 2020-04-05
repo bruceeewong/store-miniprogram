@@ -17,26 +17,6 @@
 
   <!-- Main -->
   <view class="main">
-    <!-- 精选主题 -->
-    <view class="theme">
-      <view class="theme__title color-primary">精选主题</view>
-      <view class="theme-imgs">
-        <block wx:for="{{themes}}" wx:key="{{item.id}}">
-          <!-- 精选主题是品字布局, 只显示3张图 -->
-          <image
-            wx:if="{{index < 3}}"
-            class="theme-imgs__item"
-            src="{{item.topic_img.url}}"
-            mode="aspectFill"
-            data-id="{{item.id}}"
-            data-name="{{item.name}}"
-            bindtap="hTapTheme"
-          />
-        </block>
-      </view>
-    </view>
-    <!-- 精选主题 -->
-
     <!-- 最近新品 -->
     <view class="product">
       <view class="product__title color-primary">最近新品</view>

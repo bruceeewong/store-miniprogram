@@ -16,6 +16,27 @@ class Print {
       });
     });
   }
+
+  static showTips(title, content) {
+    return new Promise((resolve, reject) => {
+      wx.showModal({
+        title: title,
+        content: content,
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: result => {
+          if (result.confirm) {
+            resolve();
+          } else {
+            reject();
+          }
+        },
+      });
+    });
+  }
 }
 
 export default Print;

@@ -25,10 +25,19 @@ export default class SearchParam {
     });
   }
 
+  /**
+   * 添加键值对
+   * @param {*} key
+   * @param {*} value
+   */
   append(key = '', value = '') {
     this._params.push([key, value]);
   }
 
+  /**
+   * 将内部的所有键值对输出如 q=sasda&p=dzcz
+   * @returns {string}
+   */
   toString() {
     let result = '';
     const len = this._params.length;

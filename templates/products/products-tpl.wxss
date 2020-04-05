@@ -14,6 +14,11 @@
   padding: 5rpx;
 }
 .products-item-wrap {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   text-align: center;
@@ -24,7 +29,8 @@
   margin: 0 auto;
 }
 .products-item__img {
-  width: 250rpx;
+  display: block;
+  width: 230rpx;
   height: 250rpx;
 }
 .products-item__name,

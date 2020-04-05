@@ -83,10 +83,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "pages/order/order",
 					"pathName": "pages/order/order",
-					"query": "amount=0.09&from=cart",
+					"query": "amount=0.05&from=cart",
 					"scene": null
 				}
 			]
